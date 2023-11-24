@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
 import '../constants/colors.dart';
@@ -366,6 +368,93 @@ class ProductDetailScreen extends StatelessWidget {
                               fontFamily: "SB",
                             ),
                           ),
+                          const SizedBox(width: 5),
+                          Stack(
+                            clipBehavior: Clip.none,
+                            children: [
+                              Positioned(
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: Colors.red,
+                                    borderRadius: BorderRadius.circular(6),
+                                    border: Border.all(
+                                      width: 1,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                  height: 26,
+                                  width: 26,
+                                ),
+                              ),
+                              Positioned(
+                                right: 20,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: Colors.blue,
+                                    borderRadius: BorderRadius.circular(6),
+                                    border: Border.all(
+                                      width: 1,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                  height: 26,
+                                  width: 26,
+                                ),
+                              ),
+                              Positioned(
+                                right: 40,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: Colors.orange,
+                                    borderRadius: BorderRadius.circular(6),
+                                    border: Border.all(
+                                      width: 1,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                  height: 26,
+                                  width: 26,
+                                ),
+                              ),
+                              Positioned(
+                                right: 60,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: Colors.purple,
+                                    borderRadius: BorderRadius.circular(6),
+                                    border: Border.all(
+                                      width: 1,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                  height: 26,
+                                  width: 26,
+                                ),
+                              ),
+                              Positioned(
+                                right: 80,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey,
+                                    borderRadius: BorderRadius.circular(6),
+                                    border: Border.all(
+                                      width: 1,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                  height: 26,
+                                  width: 26,
+                                  child: const Center(
+                                    child: Text('10+',
+                                        style: TextStyle(
+                                            fontSize: 12,
+                                            fontFamily: "SM",
+                                            color: Colors.white)),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                           const Spacer(),
                           Text(
                             'مشاهده',
@@ -385,9 +474,154 @@ class ProductDetailScreen extends StatelessWidget {
                 ),
               ),
             ),
+            const SliverToBoxAdapter(
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 36.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    AddToBasketButton(),
+                    PriceTagButton(),
+                  ],
+                ),
+              ),
+            )
           ],
         ),
       ),
+    );
+  }
+}
+
+class AddToBasketButton extends StatelessWidget {
+  const AddToBasketButton({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      alignment: AlignmentDirectional.bottomCenter,
+      children: [
+        Container(
+          height: 60,
+          width: 140,
+          decoration: BoxDecoration(
+            color: CustomColor.greenColor,
+            borderRadius: BorderRadius.circular(15),
+          ),
+        ),
+        ClipRRect(
+          borderRadius: BorderRadius.circular(15),
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+            child: SizedBox(
+              height: 53,
+              width: 160,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    const Text(
+                      'تومان',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontFamily: "SM",
+                        fontSize: 12,
+                      ),
+                    ),
+                    const SizedBox(width: 9),
+                    const Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          '20.000.00',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: "SM",
+                            fontSize: 12,
+                            decoration: TextDecoration.lineThrough,
+                          ),
+                        ),
+                        Text(
+                          '20.000.00',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: "SM",
+                            fontSize: 16,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const Spacer(),
+                    Container(
+                      width: 28,
+                      height: 22,
+                      decoration: BoxDecoration(
+                        color: CustomColor.redColor,
+                        borderRadius: BorderRadius.circular(
+                          12,
+                        ),
+                      ),
+                      child: const Center(
+                        child: Text(
+                          '%15',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: "SM",
+                            fontSize: 12,
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class PriceTagButton extends StatelessWidget {
+  const PriceTagButton({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      alignment: AlignmentDirectional.bottomCenter,
+      children: [
+        Container(
+          height: 60,
+          width: 140,
+          decoration: BoxDecoration(
+            color: CustomColor.indivatorColor,
+            borderRadius: BorderRadius.circular(15),
+          ),
+        ),
+        ClipRRect(
+          borderRadius: BorderRadius.circular(15),
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+            child: const SizedBox(
+              height: 53,
+              width: 160,
+              child: Center(
+                child: Text(
+                  'افزودن سبد خرید',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontFamily: "SM",
+                    fontSize: 14,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
