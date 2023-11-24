@@ -5,7 +5,7 @@ import 'package:ecommerce_app/screens/home_screen.dart';
 import 'package:ecommerce_app/screens/product_detail_screen.dart';
 import 'package:flutter/material.dart';
 
-import 'constants/colors.dart';
+//import 'constants/colors.dart';
 import 'screens/profile_screen.dart';
 
 void main() {
