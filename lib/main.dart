@@ -1,16 +1,18 @@
 import 'dart:ui';
+import 'package:ecommerce_app/bloc/authentication/auth.bloc.dart';
+import 'package:ecommerce_app/di/di.dart';
 import 'package:ecommerce_app/screens/card_screen.dart';
 import 'package:ecommerce_app/screens/category_list_screen.dart';
-import 'package:ecommerce_app/screens/category_screen.dart';
 import 'package:ecommerce_app/screens/home_screen.dart';
-import 'package:ecommerce_app/screens/product_detail_screen.dart';
+import 'package:ecommerce_app/screens/login_screen.dart';
 import 'package:flutter/material.dart';
-
-//import 'constants/colors.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'constants/colors.dart';
 import 'screens/profile_screen.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await getItInit();
   runApp(
     const Application(),
   );
@@ -30,11 +32,14 @@ class _ApplicationState extends State<Application> {
     return MaterialApp(
       home: Scaffold(
         //appBar: AppBar(),
-        //body: const CardScreen(),
-        body: IndexedStack(
-          index: sellcetedBottomNavigationIndex,
-          children: getScreen(),
+        body:  BlocProvider(
+          create: ((context)=> AuthBloc()),
+          child: LoginScreen(),
         ),
+        // body: IndexedStack(
+        //   index: sellcetedBottomNavigationIndex,
+        //   children: getScreen(),
+        // ),
         bottomNavigationBar: ClipRRect(
           child: BackdropFilter(
             filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
