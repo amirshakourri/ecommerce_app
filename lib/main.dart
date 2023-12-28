@@ -8,6 +8,7 @@ import 'package:ecommerce_app/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'constants/colors.dart';
+import 'screens/category_screen.dart';
 import 'screens/profile_screen.dart';
 
 void main() async {
@@ -31,9 +32,8 @@ class _ApplicationState extends State<Application> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        //appBar: AppBar(),
-        body:  BlocProvider(
-          create: ((context)=> AuthBloc()),
+        body: BlocProvider(
+          create: ((context) => AuthBloc()),
           child: LoginScreen(),
         ),
         // body: IndexedStack(
@@ -159,7 +159,7 @@ class _ApplicationState extends State<Application> {
 List<Widget> getScreen() {
   return <Widget>[
     const ProductListScreen(),
-    const CardScreen(),
+    const CategoryScreen(),
     const HomeScreen(),
     const ProfileScreen(),
   ];
