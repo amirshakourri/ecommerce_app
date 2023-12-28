@@ -18,7 +18,7 @@ abstract class IAuthenticationDatasource {
 class AuthenticationRemote implements IAuthenticationDatasource {
   final Dio _dio = locator.get();
 
-  // Sign up users
+  //! Sign up users
   @override
   Future<void> register(
       String username, String password, String passwordConfirm) async {
@@ -55,6 +55,7 @@ class AuthenticationRemote implements IAuthenticationDatasource {
       }
     } on DioException catch (ex) {
       throw ApiException(ex.response?.statusCode, ex.response?.data['message']);
+      //throw ApiException(ex.response?.statusCode, ex.response?.data['message']);
     } catch (ex) {
       throw ApiException(0, 'unknown error');
     }
