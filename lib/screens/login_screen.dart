@@ -122,6 +122,7 @@ class LoginScreen extends StatelessWidget {
                             backgroundColor: CustomColor.indivatorColor,
                           ),
                           onPressed: () async {
+                            //! Sending events to BloC
                             BlocProvider.of<AuthBloc>(context).add(
                               AuthLoginRequest(
                                 _usernameController.text,
@@ -139,7 +140,7 @@ class LoginScreen extends StatelessWidget {
                         );
                       }
                       if (state is AuthLoadingState) {
-                        return  CircularProgressIndicator();
+                        return const CircularProgressIndicator();
                       }
                       if (state is AuthResponseState) {
                         Text widget = const Text('');
