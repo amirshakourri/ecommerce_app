@@ -1,10 +1,18 @@
 import 'package:ecommerce_app/constants/colors.dart';
+import 'package:ecommerce_app/data/model/category.dart';
 import 'package:ecommerce_app/data/repository/category_repository.dart';
+import 'package:ecommerce_app/widgets/cached_image.dart';
 import 'package:flutter/material.dart';
 
-class CategoryScreen extends StatelessWidget {
+class CategoryScreen extends StatefulWidget {
   const CategoryScreen({super.key});
 
+  @override
+  State<CategoryScreen> createState() => _CategoryScreenState();
+}
+
+class _CategoryScreenState extends State<CategoryScreen> {
+  List<Category>? list;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,42 +64,44 @@ class CategoryScreen extends StatelessWidget {
                       print(l);
                     },
                     (r) {
-                      r.forEach(
-                        (element) {
-                          print(element.title);
-                          //return element.title!;
-                        },
-                      );
+                      setState(() {
+                        list = r;
+                      });
                     },
                   );
                 },
                 child: const Text('get data'),
               ),
             ),
-            SliverPadding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 44,
-              ),
-              sliver: SliverGrid(
-                delegate: SliverChildBuilderDelegate(
-                  childCount: 10,
-                  (context, index) {
-                    return Container(
-                      decoration: BoxDecoration(
-                        color: CustomColor.indivatorColor,
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                    );
-                  },
-                ),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 20,
-                  mainAxisSpacing: 20,
-                ),
-              ),
-            ),
+            _listCategory(list: list),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class _listCategory extends StatelessWidget {
+  List<Category>? list;
+  _listCategory({super.key, required this.list});
+
+  @override
+  Widget build(BuildContext context) {
+    return SliverPadding(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 44,
+      ),
+      sliver: SliverGrid(
+        delegate: SliverChildBuilderDelegate(
+          childCount: 10,
+          (context, index) {
+            return CachedImage(imagesUrl: list?[index].thumbnail ?? 'test');
+          },
+        ),
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          crossAxisSpacing: 20,
+          mainAxisSpacing: 20,
         ),
       ),
     );

@@ -6,6 +6,9 @@ class Category {
   String? color;
   String? icon;
 
+  //http://127.0.0.1:8090/api/files/COLLECTION_ID_OR_NAME/RECORD_ID/FILENAME
+  //https://startflutter.ir/api/
+
   Category(
     this.collectionId,
     this.id,
@@ -19,7 +22,7 @@ class Category {
     return Category(
       jsonObject['collectionId'],
       jsonObject['id'],
-      jsonObject['thumbnail'],
+      'https://startflutter.ir/api/api/file/${jsonObject['collectionId']}/${jsonObject['id']}/${jsonObject['thumbnail']}',
       jsonObject['title'],
       jsonObject['color'],
       jsonObject['icon'],

@@ -32,14 +32,14 @@ class _ApplicationState extends State<Application> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        body: BlocProvider(
-          create: ((context) => AuthBloc()),
-          child: LoginScreen(),
-        ),
-        // body: IndexedStack(
-        //   index: sellcetedBottomNavigationIndex,
-        //   children: getScreen(),
+        // body: BlocProvider(
+        //   create: ((context) => AuthBloc()),
+        //   child: LoginScreen(),
         // ),
+        body: IndexedStack(
+          index: sellcetedBottomNavigationIndex,
+          children: getScreen(),
+        ),
         bottomNavigationBar: ClipRRect(
           child: BackdropFilter(
             filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
@@ -159,7 +159,7 @@ class _ApplicationState extends State<Application> {
 List<Widget> getScreen() {
   return <Widget>[
     const ProductListScreen(),
-    const CategoryScreen(),
+    CategoryScreen(),
     const HomeScreen(),
     const ProfileScreen(),
   ];
