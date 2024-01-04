@@ -15,9 +15,7 @@ class CategoryRemoteDatasourse extends ICategoryDatasource {
     try {
       var response = await _dio.get('collections/category/records');
       return response.data['items']
-          .map<Category>(
-            (jsonObject) => Category.fromMapJson(jsonObject),
-          )
+          .map<Category>((jsonObject) => Category.fromMapJson(jsonObject))
           .toList();
     } on DioException catch (ex) {
       throw ApiException(ex.response?.statusCode, ex.response?.data['message']);

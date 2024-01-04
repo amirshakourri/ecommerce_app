@@ -1,5 +1,6 @@
 import 'package:ecommerce_app/constants/colors.dart';
 import 'package:flutter/material.dart';
+
 class CategoryHorizontollView extends StatelessWidget {
   const CategoryHorizontollView({super.key});
 

@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:ecommerce_app/bloc/authentication/auth.bloc.dart';
+import 'package:ecommerce_app/bloc/category/bloc/category_bloc.dart';
 import 'package:ecommerce_app/di/di.dart';
 import 'package:ecommerce_app/screens/card_screen.dart';
 import 'package:ecommerce_app/screens/category_list_screen.dart';
@@ -159,7 +160,10 @@ class _ApplicationState extends State<Application> {
 List<Widget> getScreen() {
   return <Widget>[
     const ProductListScreen(),
-    CategoryScreen(),
+    BlocProvider(
+      create: (context) => CategoryBloc(),
+      child: const CategoryScreen(),
+    ),
     const HomeScreen(),
     const ProfileScreen(),
   ];
