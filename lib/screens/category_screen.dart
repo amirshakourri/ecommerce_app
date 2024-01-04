@@ -1,8 +1,12 @@
+import 'package:ecommerce_app/bloc/category/bloc/category_bloc.dart';
+import 'package:ecommerce_app/bloc/category/bloc/category_event.dart';
+import 'package:ecommerce_app/bloc/category/bloc/category_state.dart';
 import 'package:ecommerce_app/constants/colors.dart';
 import 'package:ecommerce_app/data/model/category.dart';
 import 'package:ecommerce_app/data/repository/category_repository.dart';
 import 'package:ecommerce_app/widgets/cached_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CategoryScreen extends StatefulWidget {
   const CategoryScreen({super.key});
@@ -12,10 +16,16 @@ class CategoryScreen extends StatefulWidget {
 }
 
 class _CategoryScreenState extends State<CategoryScreen> {
-  List<Category>? list;
+  @override
+  void initState() {
+    BlocProvider.of<CategoryBloc>(context).add(CategoryRequestList());
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: CustomColor.backgroundScreenColor,
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
@@ -54,26 +64,25 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 ),
               ),
             ),
-            SliverToBoxAdapter(
-              child: ElevatedButton(
-                onPressed: () async {
-                  var repository = CategoryRepository();
-                  var either = await repository.getCategories();
-                  either.fold(
-                    (l) {
-                      print(l);
-                    },
-                    (r) {
-                      setState(() {
-                        list = r;
-                      });
-                    },
+            BlocBuilder<CategoryBloc, CategoryState>(
+              builder: (context, state) {
+                if (state is CategoryLodingState) {
+                  return const SliverToBoxAdapter(
+                    child: Center(child: CircularProgressIndicator()),
                   );
-                },
-                child: const Text('get data'),
-              ),
+                }
+                if (state is CategoryResponseState) {
+                  return state.response.fold((l) {
+                    return SliverToBoxAdapter(child: Text(l));
+                  }, (r) {
+                    return _ListCategory(
+                      list: r,
+                    );
+                  });
+                }
+                return const SliverToBoxAdapter(child: Text('Error'));
+              },
             ),
-            _listCategory(list: list),
           ],
         ),
       ),
@@ -81,9 +90,9 @@ class _CategoryScreenState extends State<CategoryScreen> {
   }
 }
 
-class _listCategory extends StatelessWidget {
-  List<Category>? list;
-  _listCategory({super.key, required this.list});
+class _ListCategory extends StatelessWidget {
+  final List<Category>? list;
+  const _ListCategory({this.list});
 
   @override
   Widget build(BuildContext context) {
@@ -93,15 +102,15 @@ class _listCategory extends StatelessWidget {
       ),
       sliver: SliverGrid(
         delegate: SliverChildBuilderDelegate(
-          childCount: 10,
+          childCount: list?.length ?? 0,
           (context, index) {
-            return CachedImage(imagesUrl: list?[index].thumbnail ?? 'test');
+            return CachedImage(imagesUrl: list?[index].thumbnail);
           },
         ),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
-          crossAxisSpacing: 20,
-          mainAxisSpacing: 20,
+          crossAxisSpacing: 10,
+          mainAxisSpacing: 10,
         ),
       ),
     );
