@@ -1,11 +1,9 @@
 import 'dart:ui';
-import 'package:ecommerce_app/bloc/authentication/auth.bloc.dart';
-import 'package:ecommerce_app/bloc/category/bloc/category_bloc.dart';
+import 'package:ecommerce_app/bloc/category/category_bloc.dart';
+import 'package:ecommerce_app/bloc/home/home_bloc.dart';
 import 'package:ecommerce_app/di/di.dart';
-import 'package:ecommerce_app/screens/card_screen.dart';
 import 'package:ecommerce_app/screens/category_list_screen.dart';
 import 'package:ecommerce_app/screens/home_screen.dart';
-import 'package:ecommerce_app/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'constants/colors.dart';
@@ -164,7 +162,10 @@ List<Widget> getScreen() {
       create: (context) => CategoryBloc(),
       child: const CategoryScreen(),
     ),
-    const HomeScreen(),
+    BlocProvider(
+      create: (context) => HomeBloc(),
+      child: const HomeScreen(),
+    ),
     const ProfileScreen(),
   ];
 }
