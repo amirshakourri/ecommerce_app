@@ -1,43 +1,50 @@
 import 'package:ecommerce_app/constants/colors.dart';
+import 'package:ecommerce_app/data/model/banner.dart';
+import 'package:ecommerce_app/widgets/cached_image.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class BannerSlider extends StatelessWidget {
-  const BannerSlider({super.key});
+  List<Banners> bannerList;
+  BannerSlider(this.bannerList, {super.key});
 
   @override
   Widget build(BuildContext context) {
-    var controller = PageController(viewportFraction: 0.8);
+    var controller = PageController(viewportFraction: 0.9);
     return Stack(
       alignment: AlignmentDirectional.bottomCenter,
       children: [
         SizedBox(
-          height: 200,
+          height: 180,
           child: PageView.builder(
             controller: controller,
-            itemCount: 3,
+            itemCount: bannerList.length,
             itemBuilder: (context, index) {
-              return Padding(
-                padding: const EdgeInsets.only(left: 10.0, right: 10),
-                child: Container(
-                  color: Colors.lightBlue,
+              return Container(
+                margin: const EdgeInsets.symmetric(horizontal: 6),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: CachedImage(
+                  imagesUrl: bannerList[index].thumbnail,
                 ),
               );
             },
           ),
         ),
         Positioned(
-          bottom: 10,
+          bottom: 16,
           child: SmoothPageIndicator(
             controller: controller, // PageController
-            count: 3,
+            count: 4,
             effect: ExpandingDotsEffect(
-              dotHeight: 10,
-              dotWidth: 10,
+              dotHeight: 8,
+              dotWidth: 8,
               activeDotColor: CustomColor.indivatorColor,
+              dotColor: Colors.white70,
             ), // your preferred effect
           ),
-        )
+        ),
       ],
     );
   }
