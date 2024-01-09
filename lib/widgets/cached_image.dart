@@ -3,13 +3,15 @@ import 'package:flutter/material.dart';
 
 class CachedImage extends StatelessWidget {
   final String? imagesUrl;
-  const CachedImage({super.key, this.imagesUrl});
+  final int radius;
+  const CachedImage({super.key, this.imagesUrl, this.radius = 0});
 
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
+      borderRadius: BorderRadius.circular(12),
       child: CachedNetworkImage(
-        fit: BoxFit.cover,
+        fit: BoxFit.fill,
         imageUrl: imagesUrl ??
             'https://startflutter.ir/api/api/file/equwrpwnez9pvim/dmr9eruk9ewr12o/rectangle_64_2_ACJxwff96d.png',
         errorWidget: (context, url, error) => Container(
