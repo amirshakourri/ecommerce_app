@@ -3,6 +3,8 @@ import 'package:ecommerce_app/bloc/home/home_event.dart';
 import 'package:ecommerce_app/bloc/home/home_state.dart';
 import 'package:ecommerce_app/constants/colors.dart';
 import 'package:ecommerce_app/data/model/banner.dart';
+import 'package:ecommerce_app/data/model/category.dart';
+import 'package:ecommerce_app/data/model/product.dart';
 import 'package:ecommerce_app/widgets/banner_slider.dart';
 import 'package:ecommerce_app/widgets/category_icon_item_list.dart';
 import 'package:ecommerce_app/widgets/product_item.dart';
@@ -45,24 +47,57 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: Text(l),
                     );
                   },
-                  (r) {
+                  (listBanner) {
                     //! Banner
-                    return _GetBanner(r);
+                    return _GetBanner(listBanner);
                   },
                 ),
               ],
 
               //! Category Title/List of Category
               const _GetCategoryTitle(),
-              const _GetCategoryItem(),
+              if (state is HomeRequsetSuccessState) ...[
+                state.categoryList.fold(
+                  (l) {
+                    return SliverToBoxAdapter(
+                      child: Text(l),
+                    );
+                  },
+                  (r) {
+                    return _GetCategoryItem(r);
+                  },
+                )
+              ],
 
               //! Most Sells Product Title/Product
               const _GetMostSellsProductTitle(),
-              const _GetMostSellsProduct(),
+              if (state is HomeRequsetSuccessState) ...[
+                state.productList.fold(
+                  (l) {
+                    return SliverToBoxAdapter(
+                      child: Text(l),
+                    );
+                  },
+                  (productList) {
+                    return _GetMostSellsProduct(productList);
+                  },
+                )
+              ],
 
               //! Most View Product Title/Product
               const _GetMostViewProductTitle(),
-              const _GetMostViewProduct()
+              if (state is HomeRequsetSuccessState) ...[
+                state.productList.fold(
+                  (l) {
+                    return SliverToBoxAdapter(
+                      child: Text(l),
+                    );
+                  },
+                  (productList) {
+                    return _GetMostViewProduct(productList);
+                  },
+                )
+              ],
             ],
           );
         },
@@ -72,7 +107,8 @@ class _HomeScreenState extends State<HomeScreen> {
 }
 
 class _GetMostViewProduct extends StatelessWidget {
-  const _GetMostViewProduct();
+  final List<Product> productList;
+  const _GetMostViewProduct(this.productList);
 
   @override
   Widget build(BuildContext context) {
@@ -81,12 +117,15 @@ class _GetMostViewProduct extends StatelessWidget {
         padding: const EdgeInsets.only(right: 44.0),
         child: SizedBox(
           height: 200,
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: 10,
-            itemBuilder: (context, index) => const Padding(
-              padding: EdgeInsets.only(left: 20.0),
-              child: ProductItem(),
+          child: Directionality(
+            textDirection: TextDirection.rtl,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: productList.length,
+              itemBuilder: (context, index) => Padding(
+                padding: const EdgeInsets.only(left: 20.0),
+                child: ProductItem(productList[index]),
+              ),
             ),
           ),
         ),
@@ -136,7 +175,8 @@ class _GetMostViewProductTitle extends StatelessWidget {
 }
 
 class _GetMostSellsProduct extends StatelessWidget {
-  const _GetMostSellsProduct();
+  final List<Product> productList;
+  const _GetMostSellsProduct(this.productList);
 
   @override
   Widget build(BuildContext context) {
@@ -145,12 +185,15 @@ class _GetMostSellsProduct extends StatelessWidget {
         padding: const EdgeInsets.only(right: 44.0),
         child: SizedBox(
           height: 200,
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: 10,
-            itemBuilder: (context, index) => const Padding(
-              padding: EdgeInsets.only(left: 20.0),
-              child: ProductItem(),
+          child: Directionality(
+            textDirection: TextDirection.rtl,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: productList.length,
+              itemBuilder: (context, index) => Padding(
+                padding: const EdgeInsets.only(left: 20.0),
+                child: ProductItem(productList[index]),
+              ),
             ),
           ),
         ),
@@ -199,7 +242,8 @@ class _GetMostSellsProductTitle extends StatelessWidget {
 }
 
 class _GetCategoryItem extends StatelessWidget {
-  const _GetCategoryItem();
+  final List<Category> listCategories;
+  const _GetCategoryItem(this.listCategories);
 
   @override
   Widget build(BuildContext context) {
@@ -208,15 +252,18 @@ class _GetCategoryItem extends StatelessWidget {
         height: 100,
         child: Padding(
           padding: const EdgeInsets.only(right: 44.0),
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: 10,
-            itemBuilder: (context, index) {
-              return const Padding(
-                padding: EdgeInsets.only(left: 20.0),
-                child: CategoryHorizontollView(),
-              );
-            },
+          child: Directionality(
+            textDirection: TextDirection.rtl,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: listCategories.length,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.only(left: 20.0),
+                  child: CategoryHorizontollView(listCategories[index]),
+                );
+              },
+            ),
           ),
         ),
       ),
