@@ -1,9 +1,11 @@
 import 'package:ecommerce_app/constants/colors.dart';
+import 'package:ecommerce_app/data/model/product.dart';
+import 'package:ecommerce_app/widgets/cached_image.dart';
 import 'package:flutter/material.dart';
+
 class ProductItem extends StatelessWidget {
-  const ProductItem({
-    super.key,
-  });
+  final Product product;
+  const ProductItem(this.product, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +29,14 @@ class ProductItem extends StatelessWidget {
               Expanded(
                 child: Container(),
               ),
-              Image.asset('assets/images/iphone.png'),
+              //Image.asset('assets/images/iphone.png'),
+              SizedBox(
+                width: 60,
+                height: 60,
+                child: CachedImage(
+                  imagesUrl: product.thumbnail,
+                ),
+              ),
               Positioned(
                 top: 0,
                 right: 10,
@@ -62,11 +71,11 @@ class ProductItem extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              const Padding(
-                padding: EdgeInsets.only(right: 10.0, bottom: 5),
+              Padding(
+                padding: const EdgeInsets.only(right: 10.0, bottom: 5),
                 child: Text(
-                  'ایفون 13 پرو مکس',
-                  style: TextStyle(
+                  product.name,
+                  style: const TextStyle(
                     fontFamily: 'SM',
                     fontSize: 14,
                   ),
@@ -103,13 +112,13 @@ class ProductItem extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(width: 9),
-                      const Column(
+                      Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            '20.000.00',
-                            style: TextStyle(
+                            product.price.toString(),
+                            style: const TextStyle(
                               color: Colors.white,
                               fontFamily: "SM",
                               fontSize: 12,
