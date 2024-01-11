@@ -16,33 +16,39 @@ class BannerSlider extends StatelessWidget {
       children: [
         SizedBox(
           height: 180,
-          child: PageView.builder(
-            controller: controller,
-            itemCount: bannerList.length,
-            itemBuilder: (context, index) {
-              return Container(
-                margin: const EdgeInsets.symmetric(horizontal: 6),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: CachedImage(
-                  imagesUrl: bannerList[index].thumbnail,
-                ),
-              );
-            },
+          child: Directionality(
+            textDirection: TextDirection.rtl,
+            child: PageView.builder(
+              controller: controller,
+              itemCount: bannerList.length,
+              itemBuilder: (context, index) {
+                return Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 6),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: CachedImage(
+                    imagesUrl: bannerList[index].thumbnail,
+                  ),
+                );
+              },
+            ),
           ),
         ),
         Positioned(
           bottom: 16,
-          child: SmoothPageIndicator(
-            controller: controller, // PageController
-            count: 4,
-            effect: ExpandingDotsEffect(
-              dotHeight: 8,
-              dotWidth: 8,
-              activeDotColor: CustomColor.indivatorColor,
-              dotColor: Colors.white70,
-            ), // your preferred effect
+          child: Directionality(
+            textDirection: TextDirection.rtl,
+            child: SmoothPageIndicator(
+              controller: controller, // PageController
+              count: 4,
+              effect: ExpandingDotsEffect(
+                dotHeight: 8,
+                dotWidth: 8,
+                activeDotColor: CustomColor.indivatorColor,
+                dotColor: Colors.white70,
+              ), // your preferred effect
+            ),
           ),
         ),
       ],
