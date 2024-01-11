@@ -1,11 +1,16 @@
 import 'package:ecommerce_app/constants/colors.dart';
+import 'package:ecommerce_app/data/model/category.dart';
+import 'package:ecommerce_app/widgets/cached_image.dart';
 import 'package:flutter/material.dart';
 
 class CategoryHorizontollView extends StatelessWidget {
-  const CategoryHorizontollView({super.key});
+  final Category category;
+  const CategoryHorizontollView(this.category, {super.key});
 
   @override
   Widget build(BuildContext context) {
+    String categoryColor = 'ff${category.color}';
+    int hexColor = int.parse(categoryColor, radix: 16);
     return Column(
       children: [
         Stack(
@@ -15,7 +20,7 @@ class CategoryHorizontollView extends StatelessWidget {
               width: 56,
               height: 56,
               decoration: ShapeDecoration(
-                color: CustomColor.indivatorColor,
+                color: Color(hexColor),
                 shadows: [
                   BoxShadow(
                     color: CustomColor.indivatorColor,
@@ -29,14 +34,17 @@ class CategoryHorizontollView extends StatelessWidget {
                 ),
               ),
             ),
-            const Icon(
-              Icons.alarm_add,
-              color: Colors.white,
-            ),
+            SizedBox(
+              width: 24,
+              height: 24,
+              child: CachedImage(
+                imagesUrl: category.icon,
+              ),
+            )
           ],
         ),
         const SizedBox(height: 10),
-        const Text('هشدار', style: TextStyle(fontFamily: 'SB')),
+        Text(category.title!, style: const TextStyle(fontFamily: 'SB')),
       ],
     );
   }
