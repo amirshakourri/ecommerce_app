@@ -54,7 +54,8 @@ class ProductListScreen extends StatelessWidget {
                 delegate: SliverChildBuilderDelegate(
                   childCount: 10,
                   (context, index) {
-                    return const ProductItem();
+                    //return  ProductItem();
+                    return Text('2');
                   },
                 ),
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
