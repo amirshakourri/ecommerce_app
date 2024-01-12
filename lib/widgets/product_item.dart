@@ -31,10 +31,11 @@ class ProductItem extends StatelessWidget {
               ),
               //Image.asset('assets/images/iphone.png'),
               SizedBox(
-                width: 60,
-                height: 60,
+                width: 80,
+                height: 100,
                 child: CachedImage(
                   imagesUrl: product.thumbnail,
+                  radius: 12,
                 ),
               ),
               Positioned(
