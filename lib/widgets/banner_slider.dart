@@ -29,6 +29,7 @@ class BannerSlider extends StatelessWidget {
                   ),
                   child: CachedImage(
                     imagesUrl: bannerList[index].thumbnail,
+                    radius: 18,
                   ),
                 );
               },
